@@ -1,4 +1,4 @@
-# DRIP 2.0
+# DRIP 
 
 DRIP is an early-stage fashion discovery product with an Expo mobile client, Next.js web portals, shared TypeScript contracts, and a FastAPI backend. This repository contains active implementation work; a feature appearing in source code does not mean its infrastructure or end-to-end behavior has been accepted.
 
