@@ -1,0 +1,60 @@
+[project]
+name = "drip-api"
+version = "0.1.0"
+description = "DRIP 2.0 Authoritative Backend Modular Monolith API"
+readme = "README.md"
+requires-python = ">=3.14,<3.15"
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.32.0",
+    "pydantic>=2.10.0",
+    "pydantic-settings>=2.6.0",
+    "sqlalchemy[asyncio]>=2.0.36",
+    "alembic>=1.14.0",
+    "asyncpg>=0.30.0",
+    "redis[hiredis]>=5.2.0",
+    "argon2-cffi>=23.1.0",
+    "cryptography>=43.0.0",
+    "pyjwt[crypto]>=2.10.0",
+    "openpyxl>=3.1.5",
+    "python-multipart>=0.0.18",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.0",
+    "pytest-asyncio>=0.24.0",
+    "httpx>=0.28.0",
+    "ruff>=0.8.0",
+    "mypy>=1.13.0",
+    "types-redis>=4.6.0",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
+addopts = "-m 'not integration' --basetemp=.pytest-tmp"
+markers = ["integration: requires explicitly configured disposable PostgreSQL 18 and Redis"]
+
+[tool.ruff]
+target-version = "py314"
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "C4"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.14"
+strict = true
+ignore_missing_imports = true
+plugins = ["pydantic.mypy"]
+
+[build-system]
+requires = ["uv_build==0.12.7"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "drip"

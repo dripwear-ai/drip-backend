@@ -1,0 +1,39 @@
+services:
+  postgres:
+    image: postgres:18.6-alpine
+    container_name: drip_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-drip_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-drip_password}
+      POSTGRES_DB: ${POSTGRES_DB:-drip_db}
+      PGDATA: /var/lib/postgresql/data
+    ports:
+      - "${DEV_BIND_ADDRESS:-127.0.0.1}:${POSTGRES_PORT:-5435}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-drip_user} -d ${POSTGRES_DB:-drip_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:8.2.10-alpine
+    container_name: drip_redis
+    restart: unless-stopped
+    ports:
+      - "${DEV_BIND_ADDRESS:-127.0.0.1}:${REDIS_PORT:-6381}:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local

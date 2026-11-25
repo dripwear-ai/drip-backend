@@ -1,0 +1,35 @@
+{
+  "name": "web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "node scripts/portal.mjs admin dev",
+    "dev:admin": "node scripts/portal.mjs admin dev",
+    "dev:seller": "node scripts/portal.mjs seller dev",
+    "build": "node scripts/portal.mjs admin build",
+    "build:admin": "node scripts/portal.mjs admin build",
+    "build:seller": "node scripts/portal.mjs seller build",
+    "start": "node scripts/portal.mjs admin start",
+    "start:admin": "node scripts/portal.mjs admin start",
+    "start:seller": "node scripts/portal.mjs seller start",
+    "lint": "eslint .",
+    "type-check": "pnpm --filter @drip/shared-types build && next typegen && tsc --noEmit"
+  },
+  "dependencies": {
+    "@drip/shared-types": "workspace:*",
+    "next": "16.4.6",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.0",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "16.4.0",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.15",
+    "typescript": "6.0.3"
+  }
+}
